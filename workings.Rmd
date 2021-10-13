@@ -1,0 +1,116 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+```{r}
+library(tidyverse)
+library(janitor)
+
+homelessness <- read_csv("raw_data/homelessness_applications.csv") %>% 
+  clean_names()
+
+view(homelessness)
+```
+
+```{r}
+
+community <- read_csv("raw_data/community_belonging.csv") %>% 
+  clean_names()
+
+green <- read_csv("raw_data/green_spaces.csv") %>% 
+  clean_names()
+
+neighbourhood <- read_csv("raw_data/neighbourhood_rating.csv") %>% 
+  clean_names()
+
+data_zones <- read_csv("raw_data/Datazone2011lookup.csv") %>% 
+  clean_names()
+
+```
+
+General Questions
+
+We would like to to help us gain insights into how people feel about their local communities in Scotland. In particular, we are interested in the relationship between distance to outdoor space, and neighbourhood ratings.
+
+- Are there certain groups that have local access to green space?
+- Are there groups that are lacking access?
+- What there big differences in how far people have to walk to access their green space?
+- Are there any differences between rural and urban areas?
+- How do people in neighbourhoods with good access to green space differ from those who have no good access? Are there differences in how they rate their neighbourhoods? Are there differences in how they rate their communities?
+- Is there any way to predict which households would have higher ratings?
+
+
+
+```{r}
+green_clean <- green %>% 
+  mutate(distance_to_nearest_green_or_blue_space = 
+           recode(distance_to_nearest_green_or_blue_space,
+                  "A 5 minute walk or less" = "Less than 10 minutes",
+                  "Within a 6-10 minute walk" = "Less than 10 minutes",
+                  "An 11 minute walk or more" = "More than 10 minutes"
+                  )) %>% 
+  group_by(feature_code, 
+           date_code,
+           measurement,
+           age,
+           distance_to_nearest_green_or_blue_space,
+           gender,
+           urban_rural_classification,
+           simd_quintiles,
+           type_of_tenure,
+           household_type,
+           ethnicity) %>% 
+  mutate(value = sum(value)) %>% 
+  filter(measurement == "Percent") %>% 
+  distinct()
+
+green_clean %>% 
+  inner_join(community, by = c("feature_code" = "feature_code",
+                                     "date_code" = "date_code",
+                                     "measurement" = "measurement",
+                                     "units" = "units",
+                                     "gender" = "gender",
+                                     "urban_rural_classification" = "urban_rural_classification",
+                                     "simd_quintiles" = "simd_quintiles",
+                                     "type_of_tenure" = "type_of_tenure",
+                                     "household_type" = "household_type",
+                                     "ethnicity" = "ethnicity",
+                                     "distance_to_nearest_green_or_blue_space" =
+                                        "walking_distance_to_nearest_greenspace")) %>% 
+  filter(measurement == "Percent") %>% 
+  view()
+```
+
+```{r}
+green_subset <- green %>% 
+  filter(measurement == "Percent") %>% 
+  select(-c(units, measurement, simd_quintiles))
+
+community_subset <- community %>% 
+  select(feature_code, community_belonging)
+
+neighbourhood_subset <- neighbourhood %>% 
+  select(feature_code, neighbourhood_rating)
+
+data_zones_subset <- data_zones %>% 
+  select(la_code, la_name) %>% 
+  distinct()
+
+shs <- green_subset %>% 
+  inner_join(data_zones_subset, by = c("feature_code" = "la_code"))
+
+shs <- shs %>% 
+  inner_join(community_subset, by = "feature_code") %>% 
+  distinct()
+
+shs <- shs %>% 
+  inner_join(neighbourhood_subset, by = "feature_code") %>% 
+  distinct()
+
+```
+
+
+
+
