@@ -11,13 +11,6 @@ Distance to green space by age group (Scotland average, 2019)
 green_clean %>%
   filter(age != "All" &
            date_code == 2019) %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(age, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = distance_to_green_space, y = scotland_average, fill = age))+
@@ -32,13 +25,6 @@ And the percentage within five minutes is trending downward over time:
 ```{r}
 green_clean %>%
   filter(age == "65 years and over") %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(date_code, age, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = distance_to_green_space))+
@@ -56,13 +42,6 @@ Distance to green space by urban rural classification (Scotland average, 2019)
 green_clean %>%
   filter(urban_rural_classification != "All" &
            date_code == 2019) %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(urban_rural_classification, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = distance_to_green_space, y = scotland_average, fill = urban_rural_classification))+
@@ -76,13 +55,6 @@ Five minutes or less trending down for both rural and urban areas, far more noti
 ```{r}
 green_clean %>%
   filter(urban_rural_classification == "Rural") %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(date_code, urban_rural_classification, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = distance_to_green_space))+
@@ -92,13 +64,6 @@ green_clean %>%
 ```{r}
 green_clean %>%
   filter(urban_rural_classification == "Urban") %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(date_code, urban_rural_classification, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = distance_to_green_space))+
@@ -111,13 +76,6 @@ green_clean %>%
 green_clean %>%
   filter(simd_quintiles != "All" &
            date_code == 2019) %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(simd_quintiles, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = distance_to_green_space, y = scotland_average, fill = simd_quintiles))+
@@ -129,13 +87,6 @@ Marked difference between 20% most deprived and 80% least within five minute wal
 ```{r}
 green_clean %>%
   filter(simd_quintiles == "20% most deprived") %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(date_code, distance_to_green_space, simd_quintiles) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = distance_to_green_space))+
@@ -147,13 +98,6 @@ No meaningful trend over time for the most deprived areas.
 ```{r}
 green_clean %>%
   filter(simd_quintiles == "80% least deprived") %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(date_code, distance_to_green_space, simd_quintiles) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = distance_to_green_space))+
@@ -173,13 +117,6 @@ green_clean %>%
   filter(type_of_tenure != "All"
          & type_of_tenure != "Other"
          & date_code == 2019) %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(type_of_tenure, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = distance_to_green_space, y = scotland_average, fill = type_of_tenure))+
@@ -200,13 +137,6 @@ green_clean %>%
   filter(household_type != "All"
          & household_type != "Other"
          & date_code == 2019) %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(household_type, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = distance_to_green_space, y = scotland_average, fill = household_type))+
@@ -218,13 +148,6 @@ Pensioners have least access to green space within five minutes, while 16.5% are
 ```{r}
 green_clean %>%
   filter(household_type == "Pensioners") %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(date_code, distance_to_green_space, household_type) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = distance_to_green_space))+
@@ -243,13 +166,6 @@ ETHNICITY
 green_clean %>%
   filter(ethnicity != "All"
          & date_code == 2019) %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(ethnicity, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = distance_to_green_space, y = scotland_average, fill = ethnicity))+
@@ -281,13 +197,6 @@ green_clean %>%
 ```{r}
 green_clean %>%
   filter(ethnicity == "Other") %>% 
-  mutate(distance_to_green_space = 
-           factor(distance_to_green_space, 
-                  levels = c("5 minute walk or less",
-                             "6 - 10 minute walk",
-                             "11 minute walk or more",
-                             "Don't Know"),
-                  ordered = TRUE)) %>% 
   group_by(date_code, ethnicity, distance_to_green_space) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = distance_to_green_space))+
@@ -304,14 +213,6 @@ COMMUNITY
 community_clean %>%
   filter(household_type != "All"
          & date_code == 2019) %>% 
-  mutate(community_belonging = 
-           factor(community_belonging, 
-                  levels = c("Very strongly",
-                             "Fairly strongly",
-                             "Not very strongly",
-                             "Not at all strongly",
-                             "Don't know"),
-                  ordered = TRUE)) %>% 
   group_by(household_type, community_belonging) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = community_belonging, y = scotland_average, fill = household_type))+
@@ -321,14 +222,6 @@ community_clean %>%
 ```{r}
 community_clean %>%
   filter(household_type == "Pensioners") %>% 
-  mutate(community_belonging = 
-           factor(community_belonging, 
-                  levels = c("Very strongly",
-                             "Fairly strongly",
-                             "Not very strongly",
-                             "Not at all strongly",
-                             "Don't know"),
-                  ordered = TRUE)) %>%
   group_by(date_code, household_type, community_belonging) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = community_belonging))+
@@ -347,14 +240,6 @@ ETHNICITY
 community_clean %>%
   filter(ethnicity != "All"
          & date_code == 2019) %>% 
-  mutate(community_belonging = 
-           factor(community_belonging, 
-                  levels = c("Very strongly",
-                             "Fairly strongly",
-                             "Not very strongly",
-                             "Not at all strongly",
-                             "Don't know"),
-                  ordered = TRUE)) %>% 
   group_by(ethnicity, community_belonging) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = community_belonging, y = scotland_average, fill = ethnicity))+
@@ -370,14 +255,6 @@ Only 59.5% of non-white people felt very or fairly strongly, compared to 80.5% o
 ```{r}
 community_clean %>%
   filter(ethnicity == "Other") %>% 
-  mutate(community_belonging = 
-           factor(community_belonging, 
-                  levels = c("Very strongly",
-                             "Fairly strongly",
-                             "Not very strongly",
-                             "Not at all strongly",
-                             "Don't know"),
-                  ordered = TRUE)) %>%
   group_by(date_code, ethnicity, community_belonging) %>% 
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = date_code, y = scotland_average, colour = community_belonging))+
@@ -399,5 +276,43 @@ neighbourhood_clean %>%
   summarise(scotland_average = mean(value)) %>% 
   ggplot(aes(x = neighbourhood_rating, y = scotland_average, fill = household_type))+
   geom_bar(stat = "identity", position = "dodge")
+```
+
+```{r}
+neighbourhood_clean %>%
+  filter(household_type == "Pensioners") %>% 
+  group_by(date_code, household_type, neighbourhood_rating) %>% 
+  summarise(scotland_average = mean(value)) %>% 
+  ggplot(aes(x = date_code, y = scotland_average, colour = neighbourhood_rating))+
+  geom_line()+
+  geom_point()
+```
+
+
+
+ETHNICITY
+
+```{r}
+neighbourhood_clean %>%
+  filter(ethnicity != "All"
+         & date_code == 2019) %>% 
+  group_by(ethnicity, neighbourhood_rating) %>% 
+  summarise(scotland_average = mean(value)) %>% 
+  ggplot(aes(x = neighbourhood_rating, y = scotland_average, fill = ethnicity))+
+  geom_bar(stat = "identity", position = "dodge")
+```
+
+Similar picture to community_belonging; stark difference between white and other for the best rating.
+
+Nearly twice as many non-white people rated their neighbourhood as very poor compared to white people.
+
+```{r}
+neighbourhood_clean %>%
+  filter(ethnicity == "Other") %>% 
+  group_by(date_code, ethnicity, neighbourhood_rating) %>% 
+  summarise(scotland_average = mean(value)) %>% 
+  ggplot(aes(x = date_code, y = scotland_average, colour = neighbourhood_rating))+
+  geom_line()+
+  geom_point()
 ```
 

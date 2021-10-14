@@ -7,11 +7,26 @@ green_clean <- green %>%
            recode(distance_to_green_space,
                   "A 5 minute walk or less" = "5 minute walk or less",
                   "Within a 6-10 minute walk" = "6 - 10 minute walk",
-                  "An 11 minute walk or more" = "11 minute walk or more")) %>% 
+                  "An 11 minute walk or more" = "11 minute walk or more")) %>%
+  mutate(distance_to_green_space = 
+           factor(distance_to_green_space, 
+                  levels = c("5 minute walk or less",
+                             "6 - 10 minute walk",
+                             "11 minute walk or more",
+                             "Don't Know"),
+                  ordered = TRUE)) %>%
   filter(measurement == "Percent") %>% 
   select(-units)
 
-community_clean <- community %>% 
+community_clean <- community %>%
+  mutate(community_belonging = 
+           factor(community_belonging, 
+                  levels = c("Very strongly",
+                             "Fairly strongly",
+                             "Not very strongly",
+                             "Not at all strongly",
+                             "Don't know"),
+                  ordered = TRUE)) %>% 
   filter(measurement == "Percent") %>% 
   select(-units)
 
