@@ -111,6 +111,114 @@ shs <- shs %>%
 
 ```
 
+```{r}
+
+green %>% 
+  map(~sum(is.na(.)))
+
+```
+
+```{r}
+green_clean %>%
+  filter(age != "All" &
+           date_code == 2019) %>% 
+  mutate(distance_to_green_space = 
+           factor(distance_to_green_space, 
+                  levels = c("5 minute walk or less",
+                             "6 - 10 minute walk",
+                             "11 minute walk or more",
+                             "Don't Know"),
+                  ordered = TRUE)) %>% 
+  ggplot(aes(x = distance_to_green_space, y = value, fill = age))+
+  geom_col()
+```
+```{r}
+green_clean %>%
+  filter(age != "All" &
+           date_code == 2019) %>% 
+  mutate(distance_to_green_space = 
+           factor(distance_to_green_space, 
+                  levels = c("5 minute walk or less",
+                             "6 - 10 minute walk",
+                             "11 minute walk or more",
+                             "Don't Know"),
+                  ordered = TRUE)) %>% 
+  group_by(age, distance_to_green_space) %>% 
+  summarise(scotland_average = mean(value)) %>% 
+  ggplot(aes(x = distance_to_green_space, y = scotland_average, fill = age))+
+  geom_bar(stat = "identity", position = "dodge")
+```
+
+```{r}
+green_clean %>%
+  filter(age == "65 years and over") %>% 
+  mutate(distance_to_green_space = 
+           factor(distance_to_green_space, 
+                  levels = c("5 minute walk or less",
+                             "6 - 10 minute walk",
+                             "11 minute walk or more",
+                             "Don't Know"),
+                  ordered = TRUE)) %>% 
+  group_by(date_code, age, distance_to_green_space) %>% 
+  summarise(scotland_average = mean(value)) %>% 
+  ggplot(aes(x = date_code, y = scotland_average, colour = distance_to_green_space))+
+  geom_line()
+```
+
+
+
+```{r}
+n_areas <- green_clean %>% 
+  distinct(feature_code) %>% 
+  nrow()
+
+feature_codes <- green_clean %>% 
+  distinct(feature_code)
+
+green_clean %>% 
+  filter(date_code == 2019
+         & age == "65 years and over"
+         & distance_to_green_space == "5 minute walk or less") %>% 
+  # distinct(feature_code) 
+  summarise(mean(value))
+  
+green %>% 
+  filter(date_code == 2019) %>% 
+  distinct(feature_code)
+
+```
+
+
+
+
+
+```{r}
+green_clean %>%
+  filter(age == "16-34 years" &
+           measurement == "Percent") %>% 
+  group_by(distance_to_green_space) %>% 
+  summarise(age = n())
+```
+```{r}
+green_clean %>%
+  filter(age == "35-64 years") %>% 
+  group_by(distance_to_green_space) %>% 
+  summarise(age = n())
+```
+```{r}
+green_clean %>%
+  filter(age == "65 years and over") %>% 
+  group_by(distance_to_green_space) %>% 
+  summarise(age = n())
+```
+```{r}
+green_clean %>% 
+  filter(gender != "All" &
+           date_code == 2019) %>% 
+  group_by(gender, distance_to_green_space) %>% 
+  summarise(count = n())
+```
+
 
 
 
