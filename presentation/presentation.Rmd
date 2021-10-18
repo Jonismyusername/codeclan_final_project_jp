@@ -1,0 +1,40 @@
+---
+title: "Scottish Household Survey"
+subtitle: "Access to green space among different demographics"
+author: "Jonathan Parker"
+date: "21/10/2021"
+output:
+  ioslides_presentation:
+        widescreen: true
+        css: styles.css
+        transition: faster
+        logo: /Users/jp/Codeclan/codeclan_final_project_jp/presentation/images/shs.png 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# The Scottish Household Survey
+
+- What is it?  (e.g. how often is it conducted, what does it cover...)
+- Explanation of the parts of the survey to be explored
+  - Access to green and blue space
+  - Community belonging
+  - Neighbourhood rating
+
+# Access to green space for different demographics
+
+
+
+# Closer look at community belonging for groups with worst access to green space
+
+# Closer look at neighbourhood rating for groups with...
+
+# Spatial analysis TBC
+
+# Recommendations
+
+# Challenges, enhancements and lessons for the future
+
+- Larger sample size focusing on these three areas and capturing detail to a more granular level (e.g. parliamentary constituency) would allow for analysis of disparities within local authority areas.  
