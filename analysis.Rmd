@@ -1,0 +1,242 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+AGE GROUP
+
+```{r}
+green_clean_names %>% 
+  filter(age != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = distance_to_green_space, y = value, fill = age))+
+  geom_col(position = "dodge")
+```
+
+Oldest age group has worst access to green space.
+Under 60% are within a five minute walk, while 17% are 11 minutes or more.
+
+```{r}
+green_clean_names %>%
+  filter(age == "65 years and over"
+         & name == "Scotland") %>% 
+  ggplot(aes(x = date_code, y = value, colour = distance_to_green_space))+
+  geom_line()+
+  geom_point()
+```
+
+And the percentage within five minutes is trending slightly downward over time.
+
+
+URBAN RURAL CLASSIFICATION
+
+```{r}
+green_clean_names %>% 
+  filter(urban_rural_classification != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = distance_to_green_space, y = value, fill = urban_rural_classification))+
+  geom_col(position = "dodge")
+```
+
+Mixed results for urban/rural. There are more people living in rural areas who are 11+ minutes from green space than there are 6-10 minutes.
+
+Five minutes or less trending down for both rural and urban areas, far more noticeable in rural however.
+
+```{r}
+green_clean_names %>% 
+  filter(distance_to_green_space == "5 minute walk or less"
+         & urban_rural_classification != "All"
+         & name == "Scotland") %>% 
+  ggplot(aes(x = date_code, y = value, colour = urban_rural_classification))+
+  geom_line()+
+  geom_point()
+```
+
+
+SIMD QUINTILES
+
+```{r}
+green_clean_names %>% 
+  filter(simd_quintiles != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = distance_to_green_space, y = value, fill = simd_quintiles))+
+  geom_col(position = "dodge")
+```
+
+Marked difference between 20% most deprived and 80% least within five minute walk.
+
+However, those in  the 80% least deprived areas within a five minute walk showing a clear downward trend over time.
+
+```{r}
+green_clean_names %>% 
+  filter(distance_to_green_space == "5 minute walk or less"
+         & simd_quintiles != "All"
+         & name == "Scotland") %>% 
+  ggplot(aes(x = date_code, y = value, colour = simd_quintiles))+
+  geom_line()+
+  geom_point()
+```
+
+
+TYPE OF TENURE
+
+```{r}
+green_clean_names %>% 
+  filter(type_of_tenure != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = distance_to_green_space, y = value, fill = type_of_tenure))+
+  geom_col(position = "dodge")
+```
+
+No significant differences between type of tenure, though those that own their home with a mortgage or loan have the best access to green space within five minutes.
+
+
+HOUSEHOLD TYPE
+
+```{r}
+green_clean_names %>% 
+  filter(household_type != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = distance_to_green_space, y = value, fill = household_type))+
+  geom_col(position = "dodge")
+```
+
+Pensioners have least access to green space within five minutes, while 17% are more than 11 minutes away.
+
+```{r}
+green_clean_names %>% 
+  filter(household_type == "Pensioners"
+         & date_code == 2019
+         & name == "Scotland")
+```
+```{r}
+green_clean_names %>% 
+  filter(distance_to_green_space == "5 minute walk or less"
+         & household_type != "All"
+         & name == "Scotland") %>% 
+  ggplot(aes(x = date_code, y = value, colour = household_type))+
+  geom_line()+
+  geom_point()
+```
+
+Percentage of pensioners within five minutes of green space has dropped from ~65% in 2013 to ~60% in 2019.
+
+
+ETHNICITY
+
+```{r}
+green_clean_names %>% 
+  filter(ethnicity != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = distance_to_green_space, y = value, fill = ethnicity))+
+  geom_col(position = "dodge")
+```
+
+Very significant difference between those identifying as "White" and those who don't. 
+
+Non-whites make up 8% of the sample size in 2019 (latest census in 2011 reported that non-whites make up 4% of the population of Scotland).
+
+Comparatively large proportion (6%) of non-white people did not know how far their nearest green space was. This is higher than any other demographic analysed in this project.
+
+```{r}
+green_clean_names %>% 
+  filter(distance_to_green_space == "5 minute walk or less"
+         & ethnicity != "All"
+         & name == "Scotland") %>% 
+  ggplot(aes(x = date_code, y = value, colour = ethnicity))+
+  geom_line()+
+  geom_point()
+```
+
+Data points for non-white respondents much more erratic due to the smaller proportion. However, chart shows there is a clear downward trend of these respondents saying they are within five minutes walk of green space - dropping from 57% in 2013 to 48% in 2019.
+
+```{r}
+green_clean_names %>% 
+  filter(distance_to_green_space == "5 minute walk or less"
+         & ethnicity == "Other"
+         & name == "Scotland") %>% 
+  filter(date_code == 2013 | date_code == 2019)
+         
+```
+
+
+COMMUNITY ~ HOUSEHOLD TYPE
+
+```{r}
+community_clean_names %>%
+  filter(household_type != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = community_belonging, y = value, fill = household_type))+
+  geom_col(position = "dodge")
+```
+
+```{r}
+community_clean_names %>%
+  filter(household_type == "Pensioners"
+         & name == "Scotland") %>% 
+  ggplot(aes(x = date_code, y = value, colour = community_belonging))+
+  geom_line()+
+  geom_point()
+```
+
+Slight decrease over time among pensioners who feel very strongly about community belonging.
+
+However, more than 80% of pensioners still consider themselves either very or fairly strongly a part of their community.
+
+
+
+COMMUNITY ~ ETHNICITY
+
+```{r}
+community_clean_names %>%
+  filter(ethnicity != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = community_belonging, y = value, fill = ethnicity))+
+  geom_col(position = "dodge")
+```
+
+Only 19% of non-white people stated they felt very strongly that they belong to their immediate neighbourhood (down from 23% in 2013), compared to 35% of white people. 
+
+Only 61% of non-white people felt very or fairly strongly, compared to 78% of white people.
+
+11% of non-white people felt not at all strongly that they belong to their immediate neighbourhood.
+
+```{r}
+community_clean_names %>%
+  filter(ethnicity == "Other"
+         & date_code == 2013
+         & name == "Scotland")
+```
+
+
+
+NEIGHBOURHOOD ~ HOUSEHOLD TYPE
+
+```{r}
+neighbourhood_clean_names %>%
+  filter(household_type != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = neighbourhood_rating, y = value, fill = household_type))+
+  geom_col(position = "dodge")
+```
+
+```{r}
+neighbourhood_clean_names %>%
+  filter(household_type == "Pensioners"
+         & name == "Scotland") %>% 
+  ggplot(aes(x = date_code, y = value, colour = neighbourhood_rating))+
+  geom_line()+
+  geom_point()
+```
+

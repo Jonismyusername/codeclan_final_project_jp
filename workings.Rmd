@@ -8,10 +8,6 @@ editor_options:
 library(tidyverse)
 library(janitor)
 
-homelessness <- read_csv("raw_data/homelessness_applications.csv") %>% 
-  clean_names()
-
-view(homelessness)
 ```
 
 ```{r}
@@ -219,6 +215,62 @@ green_clean %>%
   summarise(count = n())
 ```
 
+```{r}
+
+green_clean_scotland <- green_clean %>% 
+  filter(feature_code == "S92000003") %>% 
+  inner_join(data_zone_scotland, by = c("feature_code" = "country_code")) %>% 
+  rename("name" = "country_name")
+
+green_clean_names <- green_clean %>% 
+  filter(feature_code != "S92000003") %>% # 12,258
+  inner_join(data_zones_subset, by = c("feature_code" = "la_code")) %>% 
+  rename("name" = "la_name")
+
+green_clean_names <- bind_rows(green_clean_names, green_clean_scotland)
+
+```
+```{r}
+green_clean %>% 
+  filter(feature_code == "S12000045"
+         & date_code == 2017
+         & distance_to_green_space == "5 minute walk or less")
+```
+
+```{r}
+data_zone_scotland <- data_zones %>% 
+  filter(country_code == "S92000003") %>% 
+  select(country_code, country_name) %>% 
+  distinct()
 
 
+```
+
+```{r}
+community_clean_scotland <- community_clean %>% 
+  filter(feature_code == "S92000003") %>% 
+  inner_join(data_zone_scotland, by = c("feature_code" = "country_code")) %>% 
+  rename("name" = "country_name")
+
+community_clean_names <- community_clean %>% 
+  filter(feature_code != "S92000003") %>%
+  inner_join(data_zones_subset, by = c("feature_code" = "la_code")) %>% 
+  rename("name" = "la_name")
+
+community_clean_names <- bind_rows(community_clean_names, community_clean_scotland)
+```
+
+```{r}
+neighbourhood_clean_scotland <- neighbourhood_clean %>% 
+  filter(feature_code == "S92000003") %>% 
+  inner_join(data_zone_scotland, by = c("feature_code" = "country_code")) %>% 
+  rename("name" = "country_name")
+
+neighbourhood_clean_names <- neighbourhood_clean %>% 
+  filter(feature_code != "S92000003") %>%
+  inner_join(data_zones_subset, by = c("feature_code" = "la_code")) %>% 
+  rename("name" = "la_name")
+
+neighbourhood_clean_names <- bind_rows(neighbourhood_clean_names, neighbourhood_clean_scotland)
+```
 
