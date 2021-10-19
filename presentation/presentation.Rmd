@@ -25,15 +25,15 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Access to green space for different demographics
 
-
+- Why focusing on this? Refer to public health priorities? Exercise in green space better?
 
 # Closer look at community belonging for groups with worst access to green space
 
 # Closer look at neighbourhood rating for groups with...
 
-# Spatial analysis TBC
+# Spatial analysis
 
-# Recommendations
+# Summary of findings and recommendations
 
 # Challenges, enhancements and lessons for the future
 

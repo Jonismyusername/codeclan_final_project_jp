@@ -13,7 +13,24 @@ green_clean_names %>%
          & date_code == 2019
          & name == "Scotland") %>% 
   ggplot(aes(x = distance_to_green_space, y = value, fill = age))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "16-34 years" = "#1b9e77",
+      "35-64 years" = "#d95f02",
+      "65 years and over" = "#7b3294"
+    )
+  )+
+  labs(
+    title = "Distance to green space by age group",
+    subtitle = "Scotland average, 2019",
+    x = "\nDistance to green space",
+    y = "Percentage of respondents\n"
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
+
 ```
 
 Oldest age group has worst access to green space.
@@ -25,7 +42,27 @@ green_clean_names %>%
          & name == "Scotland") %>% 
   ggplot(aes(x = date_code, y = value, colour = distance_to_green_space))+
   geom_line()+
-  geom_point()
+  geom_point()+
+  scale_colour_manual(
+    values = c(
+      "5 minute walk or less" = "#1b9e77",
+      "6 - 10 minute walk" = "#d95f02",
+      "11 minute walk or more" = "7570b3",
+      "Don't Know" = "#7b3294"
+    )
+  )+
+  labs(
+    title = "Distance to green space for 65 years and older over time",
+    subtitle = "Scotland average, 2013 - 2019",
+    x = "\nYear",
+    y = "Percentage of respondents\n"
+  )+
+  scale_x_continuous(breaks = unique(green_clean_names$date_code))+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
+
+
 ```
 
 And the percentage within five minutes is trending slightly downward over time.
@@ -39,7 +76,23 @@ green_clean_names %>%
          & date_code == 2019
          & name == "Scotland") %>% 
   ggplot(aes(x = distance_to_green_space, y = value, fill = urban_rural_classification))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "Rural" = "#1b9e77",
+      "Urban" = "#d95f02"
+    )
+  )+
+  labs(
+    title = "Distance to green space by urban/rural classification",
+    subtitle = "Scotland average, 2019",
+    x = "\nDistance to green space",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
+
 ```
 
 Mixed results for urban/rural. There are more people living in rural areas who are 11+ minutes from green space than there are 6-10 minutes.
@@ -53,7 +106,23 @@ green_clean_names %>%
          & name == "Scotland") %>% 
   ggplot(aes(x = date_code, y = value, colour = urban_rural_classification))+
   geom_line()+
-  geom_point()
+  geom_point()+
+  scale_colour_manual(
+    values = c(
+      "Rural" = "#1b9e77",
+      "Urban" = "#d95f02"
+    )
+  )+
+  labs(
+    title = "Distance to green space by urban/rural classification over time",
+    subtitle = "Scotland average, 2013 - 2019",
+    x = "\nYear",
+    y = "Percentage of respondents\n"
+  )+
+  scale_x_continuous(breaks = unique(green_clean_names$date_code))+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 
@@ -65,7 +134,22 @@ green_clean_names %>%
          & date_code == 2019
          & name == "Scotland") %>% 
   ggplot(aes(x = distance_to_green_space, y = value, fill = simd_quintiles))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+    scale_fill_manual(
+    values = c(
+      "20% most deprived" = "#1b9e77",
+      "80% least deprived" = "#d95f02"
+    )
+  )+
+  labs(
+    title = "Distance to green space by SIMD quintiles",
+    subtitle = "Scotland average, 2019",
+    x = "\nDistance to green space",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 Marked difference between 20% most deprived and 80% least within five minute walk.
@@ -79,7 +163,23 @@ green_clean_names %>%
          & name == "Scotland") %>% 
   ggplot(aes(x = date_code, y = value, colour = simd_quintiles))+
   geom_line()+
-  geom_point()
+  geom_point()+
+  scale_colour_manual(
+    values = c(
+      "20% most deprived" = "#1b9e77",
+      "80% least deprived" = "#d95f02"
+    )
+  )+
+  labs(
+    title = "Distance to green space by SIMD quintiles over time",
+    subtitle = "Scotland average, 2013 - 2019",
+    x = "\nYear",
+    y = "Percentage of respondents\n"
+  )+
+  scale_x_continuous(breaks = unique(green_clean_names$date_code))+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 
@@ -91,7 +191,25 @@ green_clean_names %>%
          & date_code == 2019
          & name == "Scotland") %>% 
   ggplot(aes(x = distance_to_green_space, y = value, fill = type_of_tenure))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "Other" = "#1b9e77",
+      "Owned Mortgage/Loan" = "#d95f02",
+      "Owned Outright" = "#7b3294",
+      "Private Rented" = "7570b3",
+      "Social Rented" = "#2c7bb6"
+    )
+  )+
+  labs(
+    title = "Distance to green space by type of tenure",
+    subtitle = "Scotland average, 2019",
+    x = "\nDistance to green space",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 No significant differences between type of tenure, though those that own their home with a mortgage or loan have the best access to green space within five minutes.
@@ -105,7 +223,23 @@ green_clean_names %>%
          & date_code == 2019
          & name == "Scotland") %>% 
   ggplot(aes(x = distance_to_green_space, y = value, fill = household_type))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "Adults" = "#1b9e77",
+      "Pensioners" = "#d95f02",
+      "With Children" = "#7b3294"
+    )
+  )+
+  labs(
+    title = "Distance to green space by household type",
+    subtitle = "Scotland average, 2019",
+    x = "\nDistance to green space",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 Pensioners have least access to green space within five minutes, while 17% are more than 11 minutes away.
@@ -123,7 +257,25 @@ green_clean_names %>%
          & name == "Scotland") %>% 
   ggplot(aes(x = date_code, y = value, colour = household_type))+
   geom_line()+
-  geom_point()
+  geom_point()+
+  scale_colour_manual(
+    values = c(
+      "Adults" = "#1b9e77",
+      "Pensioners" = "#d95f02",
+      "With Children" = "#7b3294"
+    )
+  )+
+  labs(
+    title = "Distance to green space by household type over time",
+    subtitle = "Scotland average, 2013 - 2019",
+    x = "\nYear",
+    y = "Percentage of respondents\n"
+  )+
+  scale_x_continuous(breaks = unique(green_clean_names$date_code))+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
+  
 ```
 
 Percentage of pensioners within five minutes of green space has dropped from ~65% in 2013 to ~60% in 2019.
@@ -137,7 +289,22 @@ green_clean_names %>%
          & date_code == 2019
          & name == "Scotland") %>% 
   ggplot(aes(x = distance_to_green_space, y = value, fill = ethnicity))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "Other" = "#1b9e77",
+      "White" = "#d95f02"
+    )
+  )+
+  labs(
+    title = "Distance to green space by ethnicity",
+    subtitle = "Scotland average, 2019",
+    x = "\nDistance to green space",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 Very significant difference between those identifying as "White" and those who don't. 
@@ -153,7 +320,23 @@ green_clean_names %>%
          & name == "Scotland") %>% 
   ggplot(aes(x = date_code, y = value, colour = ethnicity))+
   geom_line()+
-  geom_point()
+  geom_point()+
+  scale_colour_manual(
+    values = c(
+      "Other" = "#1b9e77",
+      "White" = "#d95f02"
+    )
+  )+
+  labs(
+    title = "Distance to green space by ethnicity over time",
+    subtitle = "Scotland average, 2013 - 2019",
+    x = "\nYear",
+    y = "Percentage of respondents\n"
+  )+
+  scale_x_continuous(breaks = unique(green_clean_names$date_code))+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 Data points for non-white respondents much more erratic due to the smaller proportion. However, chart shows there is a clear downward trend of these respondents saying they are within five minutes walk of green space - dropping from 57% in 2013 to 48% in 2019.
@@ -176,7 +359,24 @@ community_clean_names %>%
          & date_code == 2019
          & name == "Scotland") %>% 
   ggplot(aes(x = community_belonging, y = value, fill = household_type))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "Adults" = "#1b9e77",
+      "Pensioners" = "#d95f02",
+      "With Children" = "#7b3294"
+    )
+  )+
+  labs(
+    title = "How strongly adults in Scotland feel they belong to their community, 
+by household type",
+    subtitle = "Scotland average, 2019",
+    x = "\nLevel of 'community belonging'",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 ```{r}
@@ -185,7 +385,26 @@ community_clean_names %>%
          & name == "Scotland") %>% 
   ggplot(aes(x = date_code, y = value, colour = community_belonging))+
   geom_line()+
-  geom_point()
+  geom_point()+
+  scale_colour_manual(
+    values = c(
+      "Very strongly" = "#1b9e77",
+      "Fairly strongly" = "#d95f02",
+      "Not very strongly" = "#7b3294",
+      "Not at all strongly" = "7570b3",
+      "Don't know" = "#2c7bb6"
+    )
+  )+
+  labs(
+    title = "Changes in 'community belonging' over time for pensioners",
+    subtitle = "Scotland average, 2013 - 2019",
+    x = "\nYear",
+    y = "Percentage of respondents\n"
+  )+
+  scale_x_continuous(breaks = unique(green_clean_names$date_code))+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 Slight decrease over time among pensioners who feel very strongly about community belonging.
@@ -202,7 +421,23 @@ community_clean_names %>%
          & date_code == 2019
          & name == "Scotland") %>% 
   ggplot(aes(x = community_belonging, y = value, fill = ethnicity))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "Other" = "#1b9e77",
+      "White" = "#d95f02"    
+    )
+  )+
+  labs(
+    title = "How strongly adults in Scotland feel they belong to their community,
+by ethnicity",
+    subtitle = "Scotland average, 2019",
+    x = "\nLevel of 'community belonging'",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 Only 19% of non-white people stated they felt very strongly that they belong to their immediate neighbourhood (down from 23% in 2013), compared to 35% of white people. 
@@ -226,17 +461,121 @@ NEIGHBOURHOOD ~ HOUSEHOLD TYPE
 neighbourhood_clean_names %>%
   filter(household_type != "All"
          & date_code == 2019
-         & name == "Scotland") %>% 
+         & name == "Scotland"
+         & neighbourhood_rating != "No opinion") %>% 
   ggplot(aes(x = neighbourhood_rating, y = value, fill = household_type))+
-  geom_col(position = "dodge")
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "Adults" = "#1b9e77",
+      "Pensioners" = "#d95f02",
+      "With Children" = "#7b3294"
+    )
+  )+
+  labs(
+    title = "How adults in Scotland rate their neighbourhood as a place to live,
+by household type",
+    subtitle = "Scotland average, 2019",
+    x = "\nLevel of 'community belonging'",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
 ```{r}
 neighbourhood_clean_names %>%
   filter(household_type == "Pensioners"
-         & name == "Scotland") %>% 
+         & name == "Scotland"
+         & neighbourhood_rating != "No opinion") %>% 
   ggplot(aes(x = date_code, y = value, colour = neighbourhood_rating))+
   geom_line()+
-  geom_point()
+  geom_point()+
+  scale_colour_manual(
+    values = c(
+      "Very good" = "#1b9e77",
+      "Fairly good" = "#d95f02",
+      "Fairly poor" = "#7b3294",
+      "Very poor" = "7570b3"
+    )
+  )+
+  labs(
+    title = "Changes in 'neighbourhood rating' over time for pensioners",
+    subtitle = "Scotland average, 2013 - 2019",
+    x = "\nYear",
+    y = "Percentage of respondents\n"
+  )+
+  scale_x_continuous(breaks = unique(green_clean_names$date_code))+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
 ```
 
+
+
+NEIGHBOURHOOD ~ ETHNICITY
+
+```{r}
+neighbourhood_clean_names %>%
+  filter(ethnicity != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  ggplot(aes(x = neighbourhood_rating, y = value, fill = ethnicity))+
+  geom_col(position = "dodge")+
+  scale_fill_manual(
+    values = c(
+      "Other" = "#1b9e77",
+      "White" = "#d95f02"
+    )
+  )+
+  labs(
+    title = "How adults in Scotland rate their neighbourhood as a place to live,
+by ethnicity",
+    subtitle = "Scotland average, 2019",
+    x = "\nNeighbourhood rating",
+    y = "Percentage of respondents\n",
+  )+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
+```
+
+```{r}
+neighbourhood_clean_names %>%
+  filter(ethnicity != "All"
+         & date_code == 2019
+         & name == "Scotland") %>% 
+  arrange(ethnicity)
+```
+Nearly twice as many non-white people rated their neighbourhood as either very or fairly poor compared to white people.
+
+```{r}
+neighbourhood_clean_names %>%
+  filter(ethnicity == "Other"
+         & name == "Scotland"
+         & neighbourhood_rating != "No opinion") %>% 
+  ggplot(aes(x = date_code, y = value, colour = neighbourhood_rating))+
+  geom_line()+
+  geom_point()+
+  scale_colour_manual(
+    values = c(
+      "Very good" = "#1b9e77",
+      "Fairly good" = "#d95f02",
+      "Fairly poor" = "#7b3294",
+      "Very poor" = "7570b3"
+    )
+  )+
+  labs(
+    title = "Changes in 'neighbourhood rating' over time for non-white respondents",
+    subtitle = "Scotland average, 2013 - 2019",
+    x = "\nYear",
+    y = "Percentage of respondents\n"
+  )+
+  scale_x_continuous(breaks = unique(green_clean_names$date_code))+
+  theme_minimal()+
+  theme(legend.title = element_blank())+
+  theme(legend.text = element_text(size = 10))
+```
+
+Not much in the way of a trend but fewer non-white people rated their neighbourhood as very good in 2019 than in 2013.
