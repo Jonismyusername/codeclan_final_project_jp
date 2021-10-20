@@ -7,16 +7,16 @@ spdf <- readOGR("clean_data/la_zones")
 
 spdf <- st_as_sf(spdf) 
 
-# spdf %>% 
-#   leaflet() %>% 
-#   addTiles() %>% 
-#   # setView(lat = 10, lng = 0, zoom = 2) %>% 
-#   addPolygons(label = ~name,
-#               labelOptions = labelOptions(textsize = "15px"),
-#               highlight = highlightOptions(weight = 5,
-#                                color = "red",
-#                                fillOpacity = 0.7,
-#                                bringToFront = TRUE))
+spdf %>%
+  leaflet() %>%
+  addTiles() %>%
+  # setView(lat = 10, lng = 0, zoom = 2) %>%
+  addPolygons(label = ~name,
+              labelOptions = labelOptions(textsize = "15px"),
+              highlight = highlightOptions(weight = 5,
+                               color = "red",
+                               fillOpacity = 0.7,
+                               bringToFront = TRUE))
 
 
 # shp_df <- broom::tidy(spdf, region = "code")
@@ -55,9 +55,12 @@ green_map %>%
   geom_sf(aes(geometry = geometry, fill = value))+
   scale_fill_viridis_c(option = "magma")+
   labs(
-    title = "Percentage of respondents living within a five minute walk to green or blue space",
-    subtitle = "Based on 2019 data"
-  )
+    title = "Percentage of respondents living within a five minute walk to 
+green or blue space (2019)\n"
+    # subtitle = "Based on 2019 data"
+  )+
+  theme(title = element_text(size = 15))
+
 
 # 65 years and over
 green_map %>% 
@@ -111,10 +114,10 @@ community_map %>%
   geom_sf(aes(geometry = geometry, fill = value))+
   scale_fill_viridis_c(option = "magma")+
   labs(
-    title = "Percentage of respondents who felt 'Very strongly' that they belonged 
-to their immediate community",
-    subtitle = "Based on 2019 data"
-  )
+    title = "Percentage of respondents who felt 'Very strongly' that they 
+belonged to their immediate community (2019)\n"
+  )+
+  theme(title = element_text(size = 15))
 
 
 
@@ -127,6 +130,51 @@ neighbourhood_map %>%
   geom_sf(aes(geometry = geometry, fill = value))+
   scale_fill_viridis_c(option = "magma")+
   labs(
-    title = "Percentage of respondents who rated their neighbourhood 'Very good'",
-    subtitle = "Based on 2019 data"
-  )
+    title = "Percentage of respondents who rated their immediate 
+neighbourhood as a 'Very good' place to live (2019)\n"
+  )+
+  theme(title = element_text(size = 15))
+
+
+# orkney_islands_investigation --------------------------------------------
+
+# Exploration of Orkney Islands data
+
+green_clean_2018 <- green_clean %>% 
+  filter(date_code == 2018)
+
+green_map_2018 <- green_clean_2018 %>% 
+  filter(feature_code != "S92000003") %>% 
+  left_join(spdf, by = c("feature_code" = "code"))
+
+green_map_2018 %>% 
+  filter(distance_to_green_space == "5 minute walk or less") %>% 
+  filter_at(vars(age:ethnicity), all_vars(. == "All")) %>% 
+  ggplot()+
+  geom_sf(aes(geometry = geometry, fill = value))+
+  scale_fill_viridis_c(option = "magma")+
+  labs(
+    title = "Percentage of respondents living within a five minute walk to 
+green or blue space (2018)\n"
+  )+
+  theme(title = element_text(size = 15))
+
+
+green_clean_2017 <- green_clean %>% 
+  filter(date_code == 2017)
+
+green_map_2017 <- green_clean_2017 %>% 
+  filter(feature_code != "S92000003") %>% 
+  left_join(spdf, by = c("feature_code" = "code"))
+
+green_map_2017 %>% 
+  filter(distance_to_green_space == "5 minute walk or less") %>% 
+  filter_at(vars(age:ethnicity), all_vars(. == "All")) %>% 
+  ggplot()+
+  geom_sf(aes(geometry = geometry, fill = value))+
+  scale_fill_viridis_c(option = "magma")+
+  labs(
+    title = "Percentage of respondents living within a five minute walk to 
+green or blue space (2017)\n"
+  )+
+  theme(title = element_text(size = 15))
